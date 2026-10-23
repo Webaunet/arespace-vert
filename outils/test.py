@@ -32,7 +32,7 @@ with sync_playwright() as p:
 for f in glob.glob(R+'/**/*.html',recursive=True):
     t=open(f,encoding='utf8').read()
     for l in re.findall(r'(?:href|src)="([^"#:]+)"',t):
-        if not os.path.exists(os.path.join(R,l.split('?')[0])) and not l.startswith('http') and l not in ('prestations.html','approche.html','contact.html','mentions-legales.html'):bad.append('lien '+os.path.basename(f)+' -> '+l)
+        if not os.path.exists(os.path.join(R,l.split('?')[0])) and not l.startswith('http'):bad.append('lien '+os.path.basename(f)+' -> '+l)
 tot=sum(os.path.getsize(f) for f in glob.glob(R+'/images/*'))
 bad.append('images %d Ko'%(tot//1024))
 print('\n'.join(bad) if bad else 'tout est OK')
